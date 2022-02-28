@@ -1,3 +1,5 @@
+using HealthCheck;
+
 var builder = WebApplication.CreateBuilder(args);
 IConfiguration Configuration = builder.Configuration;
 
@@ -5,10 +7,12 @@ IConfiguration Configuration = builder.Configuration;
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddHealthChecks()
-    .AddCheck<HealthCheck.ICMPHealthCheck>("ICMP");
+    .AddCheck("ICMP_01", new ICMPHealthCheck("www.ryadel.com", 100))
+    .AddCheck("ICMP_02", new ICMPHealthCheck("www.google.com", 100))
+    .AddCheck("ICMP_03", new ICMPHealthCheck("www.does-not-exist-aaa.com", 100));
 
 var app = builder.Build();
-app.MapHealthChecks("/hc");
+app.MapHealthChecks("/hc", new CustomHealthCheckOptions());
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
