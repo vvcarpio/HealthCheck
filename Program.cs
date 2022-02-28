@@ -4,8 +4,11 @@ IConfiguration Configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddHealthChecks()
+    .AddCheck<HealthCheck.ICMPHealthCheck>("ICMP");
 
 var app = builder.Build();
+app.MapHealthChecks("/hc");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
