@@ -11,7 +11,7 @@
     "HealthCheck": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7175;http://localhost:5248",
+      "applicationUrl": "https://localhost:44469;http://localhost:5248",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"

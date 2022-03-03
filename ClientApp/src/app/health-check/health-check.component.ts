@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-health-check',
-  templateUrl: 'app-health-check.component.html',
+  templateUrl: './health-check.component.html',
   styleUrls: ['./health-check.component.css']
 })
 export class HealthCheckComponent implements OnInit {
@@ -31,4 +31,5 @@ interface Check {
   name: string;
   status: string;
   responseTime: number;
+  description: string;
 }

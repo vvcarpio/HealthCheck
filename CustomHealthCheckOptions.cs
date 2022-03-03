@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace HealthCheck
 {
-    public class CustomHealthCheckOptions: HealthCheckOptions
+    public class CustomHealthCheckOptions : HealthCheckOptions
     {
         public CustomHealthCheckOptions() : base()
         {
@@ -17,7 +17,8 @@ namespace HealthCheck
 
             ResponseWriter = async (c, r) =>
             {
-                c.Response.ContentType = MediaTypeNames.Application.Json;
+                c.Response.ContentType =
+                 MediaTypeNames.Application.Json;
                 c.Response.StatusCode = StatusCodes.Status200OK;
 
                 var result = JsonSerializer.Serialize(new
@@ -25,12 +26,15 @@ namespace HealthCheck
                     checks = r.Entries.Select(e => new
                     {
                         name = e.Key,
-                        responseTime = e.Value.Duration.TotalMilliseconds,
+
+                        responseTime =
+                             e.Value.Duration.TotalMilliseconds,
                         status = e.Value.Status.ToString(),
                         description = e.Value.Description
                     }),
                     totalStatus = r.Status,
-                    totalResponseTime = r.TotalDuration.TotalMilliseconds,
+                    totalResponseTime =
+                       r.TotalDuration.TotalMilliseconds,
                 }, jsonSerializerOptions);
                 await c.Response.WriteAsync(result);
             };

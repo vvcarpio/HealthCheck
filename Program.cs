@@ -13,6 +13,9 @@ builder.Services.AddHealthChecks()
 
 var app = builder.Build();
 app.MapHealthChecks("/hc", new CustomHealthCheckOptions());
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -32,11 +35,6 @@ app.UseStaticFiles(new StaticFileOptions()
 });
 app.UseRouting();
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html");;
+app.MapFallbackToFile("index.html");
 
 app.Run();
