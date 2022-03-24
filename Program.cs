@@ -29,8 +29,16 @@ app.UseStaticFiles(new StaticFileOptions()
 {
     OnPrepareResponse = context =>
     {
-        // Disable caching for all static files.
-        context.Context.Response.Headers["Cache-Control"] = Configuration["StaticFiles:Headers:Cache-Control"];
+        if (context.File.Name == "isOnline.txt")
+        {
+            // disable caching for these files
+            context.Context.Response.Headers.Add("Cache-Control", "no-cache, no-store");
+            context.Context.Response.Headers.Add("Expires", "-1");
+        } else
+        {
+            // Retrieve cache configuration from appsettings.json.
+            context.Context.Response.Headers["Cache-Control"] = Configuration["StaticFiles:Headers:Cache-Control"];
+        }
     }
 });
 app.UseRouting();
